@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>René Hamdorf – Blog</title>
+    <description>Gedanken, Erfahrungen &amp; Einblicke</description>
+    <link>https://gitdorf.github.io/flowimohr/blog.html</link>
+    <atom:link href="https://gitdorf.github.io/flowimohr/feed.xml" rel="self" type="application/rss+xml"/>
+    <language>de-de</language>
+    <lastBuildDate>Wed, 05 Feb 2026 00:00:00 +0100</lastBuildDate>
+
+    <item>
+      <title>Frictionless Design</title>
+      <link>https://gitdorf.github.io/flowimohr/blog/frictionless-design.html</link>
+      <guid>https://gitdorf.github.io/flowimohr/blog/frictionless-design.html</guid>
+      <pubDate>Thu, 05 Feb 2026 00:00:00 +0100</pubDate>
+      <description>Es gibt ein Versprechen, das sich durch die digitale Moderne zieht wie ein roter Faden: das Versprechen der Reibungslosigkeit. Frictionless Design – so nennen UX-Designer jene Gestaltungsphilosophie, die alle Hindernisse zwischen Nutzer und Ziel beseitigen will. Doch was verlieren wir, wenn die Reibung verschwindet?</description>
+      <category>Gesellschaft</category>
+      <category>Netzkram</category>
+      <category>Philosophen</category>
+      <category>Soziologie</category>
+    </item>
+
+    <item>
+      <title>OpenClaw und die Verantwortung</title>
+      <link>https://gitdorf.github.io/flowimohr/blog/openclaw-und-die-verantwortung.html</link>
+      <guid>https://gitdorf.github.io/flowimohr/blog/openclaw-und-die-verantwortung.html</guid>
+      <pubDate>Tue, 03 Feb 2026 00:00:00 +0100</pubDate>
+      <description>Anfang 2026 ging ein Projekt durch die Tech-Welt, das binnen weniger Tage über 100.000 GitHub-Stars sammelte. OpenClaw ist ein KI-Agent, der auf dem eigenen Computer läuft – und grundlegende Fragen aufwirft: Was bedeutet es, wenn Technologie nicht mehr nur auf Anfrage reagiert, sondern proaktiv handelt?</description>
+      <category>Gesellschaft</category>
+      <category>Nerdkram</category>
+      <category>Netzkram</category>
+      <category>Philosophen</category>
+      <category>Soziologie</category>
+    </item>
+
+    <item>
+      <title>Freaks &amp; Geeks</title>
+      <link>https://gitdorf.github.io/flowimohr/blog/freaks-geeks.html</link>
+      <guid>https://gitdorf.github.io/flowimohr/blog/freaks-geeks.html</guid>
+      <pubDate>Sun, 25 Jan 2026 00:00:00 +0100</pubDate>
+      <description>Die Serie „Freaks &amp; Geeks" (1999–2000) von Paul Feig und Judd Apatow gilt vielen als Kultwerk, das die Adoleszenz in all ihren Widersprüchen einfängt. Doch was macht die Serie zu einem Ausdruck der Postmoderne?</description>
+      <category>Kunst</category>
+      <category>Philosophen</category>
+    </item>
+
+  </channel>
+</rss>

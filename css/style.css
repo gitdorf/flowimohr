@@ -464,6 +464,31 @@ a {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
+/* ===== RSS Link ===== */
+.rss-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #f97316;
+  border: 1px solid rgba(249, 115, 22, 0.4);
+  background: rgba(249, 115, 22, 0.1);
+  transition: background var(--transition), transform var(--transition);
+}
+
+.rss-link:hover {
+  background: rgba(249, 115, 22, 0.2);
+  transform: translateY(-2px);
+}
+
+.rss-link svg {
+  flex-shrink: 0;
+}
+
 /* ===== Blog Page ===== */
 .blog-grid {
   display: flex;
