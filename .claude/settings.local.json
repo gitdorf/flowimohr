@@ -6,7 +6,9 @@
       "WebFetch(domain:funk.hamdorf.org)",
       "WebSearch",
       "WebFetch(domain:norden.social)",
-      "WebFetch(domain:pixelfed.social)"
+      "WebFetch(domain:pixelfed.social)",
+      "WebFetch(domain:www.youtube.com)",
+      "Bash(curl:*)"
     ]
   }
 }
