@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trööts – René Hamdorf</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="bg-animated"></div>
+  <div class="nav-overlay"></div>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">RH</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="videos.html">Videos</a></li>
+      <li><a href="musik.html">Musik</a></li>
+      <li><a href="photos.html">Fotos</a></li>
+      <li><a href="troots.html">Trööts</a></li>
+      <li><a href="contact.html">Kontakt</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Menü öffnen">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <header class="page-header fade-in">
+    <h1>Trööts</h1>
+    <p>Beiträge auf Mastodon</p>
+    <a href="https://norden.social/@reeeen" target="_blank" rel="me noopener noreferrer" class="mastodon-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054 19.735 19.735 0 0 0 4.6.54c.373 0 .745 0 1.12-.01 1.273-.04 2.612-.107 3.86-.347 0 0 .07-.015.1-.022 2.348-.443 4.582-1.836 4.81-5.59.01-.147.04-1.508.04-1.66.001-.52.157-3.693-.022-5.645z"/>
+        <path d="M19.903 8.586v5.463h-2.345V8.775c0-1.39-.588-2.096-1.762-2.096-1.3 0-1.95.837-1.95 2.491v2.903h-2.33v-2.903c0-1.654-.652-2.491-1.951-2.491-1.175 0-1.763.706-1.763 2.096v5.274H5.457V8.586c0-1.39.36-2.494 1.079-3.311.744-.818 1.718-1.237 2.927-1.237 1.399 0 2.458.534 3.155 1.6l.68 1.131.68-1.131c.697-1.066 1.756-1.6 3.155-1.6 1.209 0 2.183.42 2.927 1.237.72.817 1.079 1.921 1.079 3.311z" fill="var(--dark)"/>
+      </svg>
+      Folgen auf Mastodon
+    </a>
+  </header>
+
+  <main class="section">
+    <div class="toot-grid" id="toot-grid">
+      <div class="toot-loading fade-in visible">Trööts werden geladen...</div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="datenschutz.html">Datenschutzerklärung</a>
+    </div>
+    <p>&copy; 2026 René Hamdorf. Alle Rechte vorbehalten.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    (function() {
+      var grid = document.getElementById('toot-grid');
+      var ACCOUNT_ID = '108193889569700052';
+      var API_BASE = 'https://norden.social/api/v1/accounts/' + ACCOUNT_ID + '/statuses';
+      var LIMIT = 40;
+
+      function buildUrl(maxId) {
+        var url = API_BASE + '?limit=' + LIMIT + '&exclude_replies=true';
+        if (maxId) url += '&max_id=' + maxId;
+        return url;
+      }
+
+      function escapeHtml(str) {
+        var d = document.createElement('div');
+        d.textContent = str;
+        return d.innerHTML;
+      }
+
+      function formatDate(dateStr) {
+        return new Date(dateStr).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+      }
+
+      function buildMediaHtml(attachments) {
+        if (!attachments || attachments.length === 0) return '';
+        var html = '<div class="toot-card-media">';
+        attachments.forEach(function(media) {
+          if (media.type === 'image') {
+            html += '<img src="' + (media.preview_url || media.url) + '" alt="' + escapeHtml(media.description || '') + '" loading="lazy">';
+          } else if (media.type === 'video' || media.type === 'gifv') {
+            html += '<video src="' + media.url + '" controls preload="metadata" loop' + (media.type === 'gifv' ? ' autoplay muted' : '') + '></video>';
+          }
+        });
+        html += '</div>';
+        return html;
+      }
+
+      function appendToots(statuses) {
+        statuses.forEach(function(status) {
+          var toot = status.reblog || status;
+          var isReblog = !!status.reblog;
+
+          var card = document.createElement('article');
+          card.className = 'toot-card fade-in visible';
+
+          var reblogHtml = isReblog ? '<div class="toot-card-reblog">&#x1f501; ' + escapeHtml(status.account.display_name || status.account.username) + ' hat geteilt</div>' : '';
+          var mediaHtml = buildMediaHtml(toot.media_attachments);
+
+          var statsHtml = '<div class="toot-card-stats">' +
+            '<span title="Antworten">&#x1f4ac; ' + (toot.replies_count || 0) + '</span>' +
+            '<span title="Geteilt">&#x1f501; ' + (toot.reblogs_count || 0) + '</span>' +
+            '<span title="Favoriten">&#x2b50; ' + (toot.favourites_count || 0) + '</span>' +
+            '</div>';
+
+          card.innerHTML =
+            reblogHtml +
+            '<div class="toot-card-date">' + formatDate(toot.created_at) + '</div>' +
+            '<div class="toot-card-content">' + (toot.content || '') + '</div>' +
+            mediaHtml +
+            statsHtml +
+            '<a href="' + toot.url + '" class="toot-card-link" target="_blank" rel="noopener noreferrer">Auf Mastodon ansehen &rarr;</a>';
+
+          grid.appendChild(card);
+        });
+      }
+
+      function loadAll(maxId) {
+        fetch(buildUrl(maxId))
+          .then(function(res) { return res.json(); })
+          .then(function(statuses) {
+            if (!Array.isArray(statuses) || statuses.length === 0) {
+              if (!maxId) grid.innerHTML = '<p class="toot-loading">Keine Trööts gefunden.</p>';
+              return;
+            }
+            if (!maxId) grid.innerHTML = '';
+            appendToots(statuses);
+            if (statuses.length >= LIMIT) {
+              loadAll(statuses[statuses.length - 1].id);
+            }
+          })
+          .catch(function() {
+            if (!maxId) {
+              grid.innerHTML =
+                '<p class="toot-loading">Trööts konnten nicht geladen werden. ' +
+                '<a href="https://norden.social/@reeeen" target="_blank" rel="noopener">Direkt auf Mastodon ansehen</a></p>';
+            }
+          });
+      }
+
+      loadAll();
+    })();
+  </script>
+</body>
+</html>

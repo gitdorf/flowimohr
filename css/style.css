@@ -794,6 +794,139 @@ a {
   -webkit-box-orient: vertical;
 }
 
+/* ===== Trööts Page ===== */
+.mastodon-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.5rem 1.4rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #6364ff;
+  border: 1px solid rgba(99, 100, 255, 0.4);
+  background: rgba(99, 100, 255, 0.1);
+  transition: background var(--transition), transform var(--transition);
+}
+
+.mastodon-link:hover {
+  background: rgba(99, 100, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.mastodon-link svg {
+  flex-shrink: 0;
+}
+
+.toot-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.toot-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 2rem;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.toot-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 35px rgba(124, 58, 237, 0.2);
+}
+
+.toot-card-reblog {
+  font-size: 0.8rem;
+  color: rgba(248, 250, 252, 0.5);
+  margin-bottom: 0.5rem;
+}
+
+.toot-card-date {
+  font-size: 0.8rem;
+  color: var(--pink);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.toot-card-content {
+  color: rgba(248, 250, 252, 0.85);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  word-break: break-word;
+}
+
+.toot-card-content a {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+}
+
+.toot-card-content p {
+  margin-bottom: 0.5rem;
+}
+
+.toot-card-media {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.toot-card-media img,
+.toot-card-media video {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+}
+
+.toot-card-stats {
+  display: flex;
+  gap: 1.25rem;
+  font-size: 0.85rem;
+  color: rgba(248, 250, 252, 0.45);
+  margin-bottom: 0.75rem;
+}
+
+.toot-card-link {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: opacity var(--transition);
+}
+
+.toot-card-link:hover {
+  opacity: 0.75;
+}
+
+.toot-loading {
+  text-align: center;
+  color: rgba(248, 250, 252, 0.5);
+  padding: 3rem;
+  font-size: 1rem;
+}
+
+.toot-loading a {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+}
+
 /* ===== Musik Page ===== */
 .funkwhale-link {
   display: inline-flex;
