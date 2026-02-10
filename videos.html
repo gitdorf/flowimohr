@@ -51,35 +51,35 @@
   <script src="js/main.js"></script>
   <script>
     (function() {
-      var CHANNEL_ID = 'UCCH2lBROCdD93av8sflkDQQ';
-      var RSS_URL = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID;
-      var API_URL = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(RSS_URL);
+      var API_KEY = 'AIzaSyAXkPWg0M2dEf-QTlnB7WzKMz7bJkp88bk';
+      var UPLOADS_PLAYLIST_ID = 'UUCH2lBROCdD93av8sflkDQQ';
+      var API_URL = 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=' + UPLOADS_PLAYLIST_ID + '&key=' + API_KEY;
       var grid = document.getElementById('video-grid');
 
       fetch(API_URL)
         .then(function(res) { return res.json(); })
         .then(function(data) {
-          if (data.status !== 'ok' || !data.items || data.items.length === 0) {
+          if (data.error || !data.items || data.items.length === 0) {
             grid.innerHTML = '<p class="video-loading">Keine Videos gefunden.</p>';
             return;
           }
           grid.innerHTML = '';
           data.items.forEach(function(item) {
-            var match = item.link.match(/[?&]v=([a-zA-Z0-9_-]+)/);
-            var videoId = match ? match[1] : (item.guid ? item.guid.split(':').pop() : null);
+            var snippet = item.snippet;
+            var videoId = snippet.resourceId && snippet.resourceId.videoId;
             if (!videoId) return;
             var card = document.createElement('article');
             card.className = 'video-card fade-in visible';
             card.innerHTML =
               '<div class="video-embed">' +
                 '<iframe src="https://www.youtube.com/embed/' + videoId + '" ' +
-                'title="' + item.title.replace(/"/g, '&quot;') + '" ' +
+                'title="' + snippet.title.replace(/"/g, '&quot;') + '" ' +
                 'frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ' +
                 'referrerpolicy="strict-origin-when-cross-origin" ' +
                 'allowfullscreen loading="lazy"></iframe>' +
               '</div>' +
-              '<h2 class="video-title">' + item.title + '</h2>' +
-              '<div class="video-date">' + new Date(item.pubDate).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' }) + '</div>';
+              '<h2 class="video-title">' + snippet.title + '</h2>' +
+              '<div class="video-date">' + new Date(snippet.publishedAt).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' }) + '</div>';
             grid.appendChild(card);
           });
         })
