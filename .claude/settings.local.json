@@ -12,7 +12,15 @@
       "Bash(git log:*)",
       "WebFetch(domain:api.rss2json.com)",
       "WebFetch(domain:discuss.ai.google.dev)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(python3:*)",
+      "Bash(# Try registering a public app to get a token for read-only access curl -s -X POST ''https://pixelfed.social/api/v1/apps'' \\\\ -d ''client_name=homepage-reader&redirect_uris=urn:ietf:wg:oauth:2.0:oob&scopes=read'' \\\\ | python3 -m json.tool)",
+      "Bash(TOKEN='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxODQwOTkxIiwianRpIjoiMzk2MjZlNGY4MmFlZTE1ZjNlNjYxYmU4OWIwY2Y1ZmVhZjQxYTg1ZDkyZDA4NWJmN2JlZThiNjU4YWIwYzVmNDhiZWI1MjIzM2NjNzQyNDUiLCJpYXQiOjE3NzA3MTM5NDQuOTQ0MTczLCJuYmYiOjE3NzA3MTM5NDQuOTQ0MTc1LCJleHAiOjE4MDIyNDk5NDQuOTQyNTg3LCJzdWIiOiIiLCJzY29wZXMiOlsicmVhZCJdfQ.L60RraFaAA_5jdZP9C_qjS0uT4lMSAAr5JNipjV7459h4GQBO74o0re6z6X9PMyE9M4R-CCuedPOS6rEuoWzNtgS-zW6fIgn78U4-lNOAxg5qYkU46af0sTeV4p_prZJMEFS2CkqMVCh3ekp3Q0roP7r7Kj1e7_HkJ0gzOImen3kATBr-P6pf9ukrptPAVMcGJZPXv8eMULYqpiGiNntxMb4ttkoEBke4_ojfWDG10lFZccWH6BcRRuJwu6-g4O_wpts53iPjFK-wxJuEfSzofnewO35-ntUCPPDI-UQrfZuRQYS6lkbvGwk7Ke4wlfQxKWDnia49P2XLbAXGGJj6F4fZfrq0o7xOuhkFpBa1pv4GNyEJOZLJQhmnnZeOtmf1_9o9dZN5WZmHzisv654deOkCvXFIw8FD6CDbUoJMAqmmZDJpPiBhCyUnvR4XBq84J7mqJWVIYjTLLGkiX4szReVzAFzDBPG4WrcT6AwEmNXa07T-bTv3fnw2enwoo0AjCnfaK3Zbcx5u71j5ezAFBPmrUmhaXeKYKglElJ1bZpkEEqAzBKaAd5db-05cj874_taoxGPQJGH06SWYmtRrt0eTDNQcN0fq8hy_vTa-DvHd5vpbTbQMGLwe5XZTNkswSFbk8I3xKUOCw7cu-1qhd3J9d2b79MEkHLGfSnUJEU')",
+      "Bash(__NEW_LINE_2df494efa19ac1a6__ curl -s -w '\\\\nHTTP:%{http_code}' -H \"Authorization: Bearer $TOKEN\" 'https://pixelfed.social/api/v1/accounts/lookup?acct=reen_danger')",
+      "Bash(__NEW_LINE_9766b072ccbec412__ echo \"=== Try min_id ===\")",
+      "Bash(__NEW_LINE_a01553dfd605339a__ echo \"=== Count entries from default feed ===\")",
+      "Bash(# Extract the _sharedData JSON from the profile page curl -s ''https://pixelfed.social/reen_danger'' | grep -oP ''window\\\\._sharedData = \\\\K[^;]+'' | python3 -m json.tool)",
+      "Bash(# macOS grep doesn''t support -P, use sed instead curl -s ''https://pixelfed.social/reen_danger'' | sed -n ''s/.*window\\\\._sharedData = \\\\\\(.*\\\\\\);.*/\\\\1/p'' | python3 -m json.tool)"
     ]
   }
 }

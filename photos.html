@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fotos – René Hamdorf</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="bg-animated"></div>
+  <div class="nav-overlay"></div>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">RH</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="videos.html">Videos</a></li>
+      <li><a href="photos.html">Fotos</a></li>
+      <li><a href="contact.html">Kontakt</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Menü öffnen">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <header class="page-header fade-in">
+    <h1>Fotos</h1>
+    <p>Fotografie auf Pixelfed</p>
+    <a href="https://pixelfed.social/reen_danger" target="_blank" rel="me noopener noreferrer" class="pixelfed-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 24C5.3726 24 0 18.6274 0 12S5.3726 0 12 0s12 5.3726 12 12-5.3726 12-12 12m-.9526-9.3802h2.2014c2.0738 0 3.7549-1.6366 3.7549-3.6554S15.3226 7.309 13.2488 7.309h-3.1772c-1.1964 0-2.1663.9442-2.1663 2.1089v8.208z"/>
+      </svg>
+      Folgen auf Pixelfed
+    </a>
+  </header>
+
+  <main class="section photo-section">
+    <div class="photo-grid" id="photo-grid">
+      <div class="photo-loading fade-in visible">Fotos werden geladen...</div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="datenschutz.html">Datenschutzerklärung</a>
+    </div>
+    <p>&copy; 2026 René Hamdorf. Alle Rechte vorbehalten.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    (function() {
+      var grid = document.getElementById('photo-grid');
+      var ACCOUNT_ID = '113957255881058118';
+      var API_BASE = 'https://norden.social/api/v1/accounts/' + ACCOUNT_ID + '/statuses';
+      var LIMIT = 40;
+
+      function buildUrl(maxId) {
+        var url = API_BASE + '?limit=' + LIMIT + '&only_media=true&exclude_replies=true';
+        if (maxId) url += '&max_id=' + maxId;
+        return url;
+      }
+
+      function appendPhotos(statuses) {
+        statuses.forEach(function(status) {
+          if (!status.media_attachments || status.media_attachments.length === 0) return;
+          status.media_attachments.forEach(function(media) {
+            if (media.type !== 'image') return;
+            var card = document.createElement('a');
+            card.className = 'photo-card fade-in visible';
+            card.href = status.url;
+            card.target = '_blank';
+            card.rel = 'noopener noreferrer';
+
+            var tmp = document.createElement('div');
+            tmp.innerHTML = status.content || '';
+            var caption = tmp.textContent || tmp.innerText || '';
+            caption = caption.trim();
+            var captionHtml = caption ? '<div class="photo-card-caption">' + caption + '</div>' : '';
+
+            card.innerHTML =
+              '<img src="' + (media.preview_url || media.url) + '" alt="' + (media.description || caption).replace(/"/g, '&quot;') + '" loading="lazy">' +
+              captionHtml;
+            grid.appendChild(card);
+          });
+        });
+      }
+
+      function loadAll(maxId) {
+        fetch(buildUrl(maxId))
+          .then(function(res) { return res.json(); })
+          .then(function(statuses) {
+            if (!Array.isArray(statuses) || statuses.length === 0) {
+              if (!maxId) grid.innerHTML = '<p class="photo-loading">Keine Fotos gefunden.</p>';
+              return;
+            }
+            if (!maxId) grid.innerHTML = '';
+            appendPhotos(statuses);
+            if (statuses.length >= LIMIT) {
+              loadAll(statuses[statuses.length - 1].id);
+            }
+          })
+          .catch(function() {
+            if (!maxId) {
+              grid.innerHTML =
+                '<p class="photo-loading">Fotos konnten nicht geladen werden. ' +
+                '<a href="https://pixelfed.social/reen_danger" target="_blank" rel="noopener">Direkt auf Pixelfed ansehen</a></p>';
+            }
+          });
+      }
+
+      loadAll();
+    })();
+  </script>
+</body>
+</html>
