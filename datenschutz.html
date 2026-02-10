@@ -45,7 +45,7 @@
     <p>E-Mail: <a href="mailto:rene@hamdorf.cloud">rene@hamdorf.cloud</a></p>
 
     <h2>2. Allgemeines zur Datenverarbeitung</h2>
-    <p>Diese Website ist eine rein statische Webseite ohne Cookies, ohne Tracking, ohne Analysetools und ohne Kontaktformulare. Die Verarbeitung personenbezogener Daten erfolgt ausschließlich im Rahmen der technischen Bereitstellung der Website durch den Hosting-Anbieter.</p>
+    <p>Diese Website ist eine rein statische Webseite ohne eigene Cookies, ohne Tracking, ohne Analysetools und ohne Kontaktformulare. Zur Darstellung von Inhalten werden teilweise Daten von Drittanbietern über Ihren Browser abgerufen (siehe Abschnitt 7). Die Verarbeitung personenbezogener Daten erfolgt im Rahmen der technischen Bereitstellung der Website durch den Hosting-Anbieter sowie im Rahmen der unter Abschnitt 7 beschriebenen externen Inhalte.</p>
 
     <h2>3. Hosting und Server-Logfiles</h2>
     <p>Diese Website wird bei einem externen Dienstleister gehostet (Hosting-Anbieter). Beim Aufrufen dieser Website erhebt der Hosting-Anbieter automatisch Informationen in sogenannten Server-Logfiles, die Ihr Browser automatisch übermittelt. Dies sind:</p>
@@ -66,16 +66,36 @@
     <p>Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung personenbezogener Daten eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers von „http://" auf „https://" wechselt und an dem Schloss-Symbol in Ihrer Browserzeile.</p>
 
     <h2>5. Cookies</h2>
-    <p>Diese Website verwendet keine Cookies. Es werden weder eigene noch Cookies von Drittanbietern eingesetzt. Es findet kein Tracking statt.</p>
+    <p>Diese Website setzt von sich aus keine Cookies und verwendet keine Tracking- oder Analysetools.</p>
+    <p>Wenn Sie auf der Videos-Seite ein eingebettetes YouTube-Video abspielen, können durch YouTube (Google Ireland Limited) Cookies auf Ihrem Gerät gesetzt werden. Die Einbettung erfolgt über den erweiterten Datenschutzmodus (<code>youtube-nocookie.com</code>) und erst nach Ihrer ausdrücklichen Einwilligung per Klick. Nähere Informationen finden Sie in der <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Datenschutzerklärung von Google</a>.</p>
 
     <h2>6. Kontaktaufnahme per E-Mail</h2>
     <p>Wenn Sie uns per E-Mail kontaktieren, werden Ihre Angaben (E-Mail-Adresse, ggf. Name und Inhalt der Nachricht) zum Zweck der Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert.</p>
     <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Beantwortung Ihrer Anfrage) bzw. Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen), sofern Ihre Anfrage auf den Abschluss eines Vertrags abzielt.</p>
     <p><strong>Speicherdauer:</strong> Die von Ihnen übermittelten Daten werden gelöscht, sobald der Zweck der Speicherung entfällt, in der Regel nach Abschluss der Kommunikation.</p>
 
-    <h2>7. Externe Links</h2>
-    <p>Diese Website enthält Links zu externen Websites Dritter (u. a. Mastodon, LinkedIn, Pixelfed, Signal, Funkwhale). Beim Anklicken dieser Links verlassen Sie unsere Website. Für die Inhalte und die Datenverarbeitung auf den verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich. Beim Klick auf einen externen Link wird Ihre IP-Adresse an den jeweiligen Anbieter übermittelt. Bitte informieren Sie sich in den Datenschutzerklärungen der jeweiligen Dienste.</p>
-    <p>Wir weisen ausdrücklich darauf hin, dass auf dieser Website keine Social-Media-Plugins oder eingebettete Inhalte externer Dienste verwendet werden. Es handelt sich ausschließlich um einfache Hyperlinks.</p>
+    <h2>7. Externe Inhalte und Verbindungen zu Drittanbietern</h2>
+
+    <h3>a) Einfache Hyperlinks</h3>
+    <p>Diese Website enthält Links zu externen Websites Dritter (u. a. Mastodon, LinkedIn, Pixelfed, Signal). Beim Anklicken dieser Links verlassen Sie unsere Website. Erst durch den Klick wird eine Verbindung zum jeweiligen Anbieter hergestellt. Für die Inhalte und die Datenverarbeitung auf den verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
+
+    <h3>b) Client-seitige API-Abrufe</h3>
+    <p>Zur Darstellung bestimmter Inhalte ruft Ihr Browser beim Seitenaufruf Daten von folgenden Drittanbietern ab. Dabei wird Ihre IP-Adresse an den jeweiligen Anbieter übermittelt:</p>
+    <ul>
+      <li><strong>YouTube Data API</strong> (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland): Auf der Videos-Seite wird die Videoliste über die YouTube Data API geladen. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Datenschutzerklärung von Google</a></li>
+      <li><strong>Mastodon-API</strong> (norden.social): Auf den Seiten „Trööts" und „Fotos" werden Inhalte über die API der Mastodon-Instanz norden.social geladen. <a href="https://norden.social/privacy-policy" target="_blank" rel="noopener noreferrer">Datenschutzerklärung von norden.social</a></li>
+      <li><strong>Blog</strong> (blog.hamdorf.org): Auf der Blog-Seite werden Beiträge über die API von blog.hamdorf.org geladen. Dieser Dienst wird auf eigener Infrastruktur betrieben.</li>
+    </ul>
+    <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse). Unser berechtigtes Interesse besteht in der Darstellung aktueller Inhalte aus unseren eigenen Profilen auf Drittplattformen.</p>
+
+    <h3>c) Eingebettete Inhalte (YouTube-Videos)</h3>
+    <p>Auf der Videos-Seite können YouTube-Videos abgespielt werden. Die Einbettung erfolgt erst nach Ihrer ausdrücklichen Einwilligung per Klick auf den Abspiel-Button. Vor Ihrer Einwilligung wird lediglich ein statisches Vorschaubild von YouTube geladen (dabei wird Ihre IP-Adresse an Google übermittelt). Nach dem Klick wird das Video über den erweiterten Datenschutzmodus (<code>youtube-nocookie.com</code>) eingebettet. YouTube kann dabei Cookies setzen und weitere Daten erheben.</p>
+    <p><strong>Anbieter:</strong> Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.</p>
+    <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO (Einwilligung). Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die Seite ohne Klick auf ein Video verlassen oder Ihren Browser-Cache löschen.</p>
+    <p><a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Datenschutzerklärung von Google</a></p>
+
+    <h3>d) Musik-Streaming (funk.hamdorf.org)</h3>
+    <p>Auf der Musik-Seite werden Audioinhalte über funk.hamdorf.org (Funkwhale) eingebettet. Dieser Dienst wird auf eigener Infrastruktur betrieben; es findet keine Datenübermittlung an Dritte statt.</p>
 
     <h2>8. Ihre Rechte als betroffene Person</h2>
     <p>Ihnen stehen folgende Rechte gegenüber dem Verantwortlichen hinsichtlich Ihrer personenbezogenen Daten zu:</p>

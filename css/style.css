@@ -693,6 +693,62 @@ a {
   height: 100%;
 }
 
+/* Video Consent Placeholder (2-Klick-Lösung) */
+.video-consent {
+  cursor: pointer;
+}
+
+.video-consent-thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-consent-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1;
+  transition: background var(--transition);
+}
+
+.video-consent:hover .video-consent-overlay {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.video-consent-play {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform var(--transition), opacity var(--transition);
+  opacity: 0.85;
+}
+
+.video-consent-play:hover {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.video-consent-notice {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  max-width: 280px;
+  line-height: 1.4;
+}
+
 .video-title {
   font-size: 1.3rem;
   font-weight: 700;
@@ -1157,6 +1213,14 @@ a {
   font-weight: 700;
   margin-top: 2.5rem;
   margin-bottom: 0.75rem;
+  color: var(--light);
+}
+
+.legal-content h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
   color: var(--light);
 }
 
