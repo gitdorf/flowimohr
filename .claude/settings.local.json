@@ -11,7 +11,8 @@
       "Bash(curl:*)",
       "Bash(git log:*)",
       "WebFetch(domain:api.rss2json.com)",
-      "WebFetch(domain:discuss.ai.google.dev)"
+      "WebFetch(domain:discuss.ai.google.dev)",
+      "Bash(ls:*)"
     ]
   }
 }

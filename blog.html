@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog – René Hamdorf</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="alternate" type="application/rss+xml" title="René Hamdorf – Blog" href="feed.xml">
+  <link rel="alternate" type="application/rss+xml" title="René Hamdorf – Blog" href="https://blog.hamdorf.org/feed/">
 </head>
 <body>
   <div class="bg-animated"></div>
@@ -29,87 +29,16 @@
   <header class="page-header fade-in">
     <h1>Blog</h1>
     <p>Gedanken, Erfahrungen & Einblicke</p>
-    <a href="feed.xml" class="rss-link" title="RSS Feed abonnieren">
+    <a href="https://blog.hamdorf.org/feed/" class="rss-link" title="RSS Feed abonnieren">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>
       RSS Feed
     </a>
   </header>
 
-  <main class="section blog-grid">
-
-    <!-- === Neuen Beitrag hier oben einfügen (neuester zuerst) === -->
-
-    <article class="blog-card fade-in">
-      <div class="blog-card-date">5. Februar 2026</div>
-      <h2 class="blog-card-title">Frictionless Design</h2>
-      <div class="blog-card-tags">
-        <span class="blog-tag">Gesellschaft</span>
-        <span class="blog-tag">Netzkram</span>
-        <span class="blog-tag">Philosophen</span>
-        <span class="blog-tag">Soziologie</span>
-      </div>
-      <p class="blog-card-excerpt">
-        Es gibt ein Versprechen, das sich durch die digitale Moderne zieht wie ein roter Faden:
-        das Versprechen der Reibungslosigkeit. Frictionless Design – so nennen UX-Designer jene
-        Gestaltungsphilosophie, die alle Hindernisse zwischen Nutzer und Ziel beseitigen will.
-        Doch was verlieren wir, wenn die Reibung verschwindet?
-      </p>
-      <a href="blog/frictionless-design.html" class="blog-read-more">Weiterlesen &rarr;</a>
-    </article>
-
-    <article class="blog-card fade-in">
-      <div class="blog-card-date">3. Februar 2026</div>
-      <h2 class="blog-card-title">OpenClaw und die Verantwortung</h2>
-      <div class="blog-card-tags">
-        <span class="blog-tag">Gesellschaft</span>
-        <span class="blog-tag">Nerdkram</span>
-        <span class="blog-tag">Philosophen</span>
-        <span class="blog-tag">Soziologie</span>
-      </div>
-      <p class="blog-card-excerpt">
-        Anfang 2026 ging ein Projekt durch die Tech-Welt, das binnen weniger Tage über
-        100.000 GitHub-Stars sammelte. OpenClaw ist ein KI-Agent, der auf dem eigenen Computer
-        läuft – und grundlegende Fragen aufwirft: Was bedeutet es, wenn Technologie nicht mehr
-        nur auf Anfrage reagiert, sondern proaktiv handelt?
-      </p>
-      <a href="blog/openclaw-und-die-verantwortung.html" class="blog-read-more">Weiterlesen &rarr;</a>
-    </article>
-
-    <article class="blog-card fade-in">
-      <div class="blog-card-date">25. Januar 2026</div>
-      <h2 class="blog-card-title">Freaks &amp; Geeks</h2>
-      <div class="blog-card-tags">
-        <span class="blog-tag">Kunst</span>
-        <span class="blog-tag">Philosophen</span>
-      </div>
-      <p class="blog-card-excerpt">
-        Die Serie „Freaks &amp; Geeks" (1999–2000) von Paul Feig und Judd Apatow gilt vielen
-        als Kultwerk, das die Adoleszenz in all ihren Widersprüchen einfängt. Doch was macht
-        die Serie zu einem Ausdruck der Postmoderne?
-      </p>
-      <a href="blog/freaks-geeks.html" class="blog-read-more">Weiterlesen &rarr;</a>
-    </article>
-
-    <!--
-    =============================================
-    VORLAGE – Kopiere diesen Block für neue Beiträge:
-    =============================================
-
-    <article class="blog-card fade-in">
-      <div class="blog-card-date">TT. Monat JJJJ</div>
-      <h2 class="blog-card-title">Titel des Beitrags</h2>
-      <div class="blog-card-tags">
-        <span class="blog-tag">Kategorie</span>
-      </div>
-      <p class="blog-card-excerpt">
-        Kurze Vorschau / Zusammenfassung des Beitrags...
-      </p>
-      <a href="blog/dateiname.html" class="blog-read-more">Weiterlesen &rarr;</a>
-    </article>
-
-    =============================================
-    -->
-
+  <main class="section">
+    <div class="blog-grid" id="blog-grid">
+      <div class="blog-loading fade-in visible">Beiträge werden geladen...</div>
+    </div>
   </main>
 
   <footer class="footer">
@@ -120,5 +49,52 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    (function() {
+      var API_URL = 'https://blog.hamdorf.org/wp-json/wp/v2/posts?per_page=100&_embed=true';
+      var grid = document.getElementById('blog-grid');
+
+      fetch(API_URL)
+        .then(function(res) { return res.json(); })
+        .then(function(posts) {
+          if (!Array.isArray(posts) || posts.length === 0) {
+            grid.innerHTML = '<p class="blog-loading">Keine Beiträge gefunden.</p>';
+            return;
+          }
+          grid.innerHTML = '';
+          posts.forEach(function(post) {
+            var date = new Date(post.date).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
+
+            var terms = (post._embedded && post._embedded['wp:term']) || [];
+            var tagsHtml = '';
+            terms.forEach(function(group) {
+              group.forEach(function(term) {
+                tagsHtml += '<span class="blog-tag">' + term.name + '</span>';
+              });
+            });
+
+            var tmp = document.createElement('div');
+            tmp.innerHTML = post.excerpt.rendered || '';
+            var excerpt = tmp.textContent || tmp.innerText || '';
+            excerpt = excerpt.trim();
+
+            var card = document.createElement('article');
+            card.className = 'blog-card fade-in visible';
+            card.innerHTML =
+              '<div class="blog-card-date">' + date + '</div>' +
+              '<h2 class="blog-card-title">' + post.title.rendered + '</h2>' +
+              '<div class="blog-card-tags">' + tagsHtml + '</div>' +
+              '<p class="blog-card-excerpt">' + excerpt + '</p>' +
+              '<a href="' + post.link + '" class="blog-read-more" target="_blank" rel="noopener">Weiterlesen &rarr;</a>';
+            grid.appendChild(card);
+          });
+        })
+        .catch(function() {
+          grid.innerHTML =
+            '<p class="blog-loading">Beiträge konnten nicht geladen werden. ' +
+            '<a href="https://blog.hamdorf.org" target="_blank" rel="noopener">Direkt zum Blog</a></p>';
+        });
+    })();
+  </script>
 </body>
 </html>
