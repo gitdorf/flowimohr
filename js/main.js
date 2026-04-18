@@ -43,6 +43,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   fadeElements.forEach((el) => observer.observe(el));
 
+  // Cursor spotlight on cards
+  const spotlightCards = document.querySelectorAll(
+    '.blog-card, .toot-card, .video-card, .contact-card, .experience-card, .album-player, .about-text'
+  );
+  spotlightCards.forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
+      card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
+    });
+  });
+
   // Active page highlighting in nav
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-links a').forEach(link => {
