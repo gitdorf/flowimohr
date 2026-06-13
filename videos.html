@@ -33,16 +33,19 @@
 
   <header class="page-header fade-in">
     <h1>Videos</h1>
-    <p>Musik & mehr auf YouTube</p>
-    <a href="https://www.youtube.com/@bonoboist" target="_blank" rel="noopener" class="youtube-channel-link">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/><polygon points="9.545,15.568 15.818,12 9.545,8.432" fill="#fff"/></svg>
-      Kanal auf YouTube
+    <p>Meine Videos auf PeerTube</p>
+    <a href="https://tube.hamdorf.org/accounts/rene/videos" target="_blank" rel="noopener noreferrer" class="peertube-channel-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="23 7 16 12 23 17 23 7"/>
+        <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+      </svg>
+      Alle Videos auf PeerTube
     </a>
   </header>
 
   <main class="section">
     <div class="video-grid" id="video-grid">
-      <div class="video-loading fade-in visible">Videos werden geladen...</div>
+      <div class="video-loading fade-in visible">Videos werden geladen…</div>
     </div>
   </main>
 
@@ -55,58 +58,59 @@
 
   <script src="js/main.js"></script>
   <script>
-    (function() {
-      var API_KEY = 'AIzaSyAXkPWg0M2dEf-QTlnB7WzKMz7bJkp88bk';
-      var UPLOADS_PLAYLIST_ID = 'UUCH2lBROCdD93av8sflkDQQ';
-      var API_URL = 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=' + UPLOADS_PLAYLIST_ID + '&key=' + API_KEY;
+    (function () {
+      var API = 'https://tube.hamdorf.org/api/v1/accounts/rene/videos?count=20&sort=-publishedAt';
+      var BASE = 'https://tube.hamdorf.org';
       var grid = document.getElementById('video-grid');
 
-      fetch(API_URL)
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          if (data.error || !data.items || data.items.length === 0) {
+      fetch(API)
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (!data.data || data.data.length === 0) {
             grid.innerHTML = '<p class="video-loading">Keine Videos gefunden.</p>';
             return;
           }
           grid.innerHTML = '';
-          data.items.forEach(function(item) {
-            var snippet = item.snippet;
-            var videoId = snippet.resourceId && snippet.resourceId.videoId;
-            if (!videoId) return;
+          data.data.forEach(function (video) {
+            var shortUUID = video.shortUUID;
+            var thumb = video.thumbnails && video.thumbnails.length > 0
+              ? video.thumbnails[0].fileUrl
+              : BASE + video.thumbnailPath;
+            var date = new Date(video.publishedAt).toLocaleDateString('de-DE', {
+              day: 'numeric', month: 'long', year: 'numeric'
+            });
             var card = document.createElement('article');
             card.className = 'video-card fade-in visible';
             card.innerHTML =
-              '<div class="video-embed video-consent" data-video-id="' + videoId + '">' +
-                '<img src="https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg" alt="Vorschaubild: ' + snippet.title.replace(/"/g, '&quot;') + '" class="video-consent-thumb" loading="lazy">' +
+              '<div class="video-embed video-preview" data-uuid="' + shortUUID + '">' +
+                '<img src="' + thumb + '" alt="Vorschaubild: ' + video.name.replace(/"/g, '&quot;') + '" class="video-consent-thumb" loading="lazy">' +
                 '<div class="video-consent-overlay">' +
                   '<button class="video-consent-play" type="button" aria-label="Video abspielen">' +
-                    '<svg viewBox="0 0 68 48" width="68" height="48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.64 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#e33"></path><path d="M45 24L27 14v20" fill="#fff"></path></svg>' +
+                    '<svg viewBox="0 0 68 48" width="68" height="48"><path d="M34 0C15.2 0 0 15.2 0 34s15.2 34 34 34 34-15.2 34-34S52.8 0 34 0z" fill="rgba(0,0,0,0.6)"/><path d="M27 20v28l22-14z" fill="#fff"/></svg>' +
                   '</button>' +
-                  '<p class="video-consent-notice">Mit Klick auf Abspielen wird eine Verbindung zu YouTube hergestellt.</p>' +
                 '</div>' +
               '</div>' +
-              '<h2 class="video-title">' + snippet.title + '</h2>' +
-              '<div class="video-date">' + new Date(snippet.publishedAt).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' }) + '</div>';
+              '<h2 class="video-title">' + video.name + '</h2>' +
+              '<div class="video-date">' + date + '</div>';
             grid.appendChild(card);
           });
 
-          grid.addEventListener('click', function(e) {
+          grid.addEventListener('click', function (e) {
             var btn = e.target.closest('.video-consent-play');
             if (!btn) return;
-            var container = btn.closest('.video-consent');
-            var videoId = container.getAttribute('data-video-id');
+            var container = btn.closest('.video-preview');
+            var uuid = container.getAttribute('data-uuid');
             container.innerHTML =
-              '<iframe src="https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1" ' +
-              'frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ' +
-              'referrerpolicy="strict-origin-when-cross-origin" ' +
-              'allowfullscreen></iframe>';
-            container.classList.remove('video-consent');
+              '<iframe src="' + BASE + '/videos/embed/' + uuid + '?autoplay=1&warningTitle=0" ' +
+              'frameborder="0" allowfullscreen ' +
+              'sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>';
+            container.classList.remove('video-preview');
           });
         })
-        .catch(function() {
+        .catch(function () {
           grid.innerHTML =
             '<p class="video-loading">Videos konnten nicht geladen werden. ' +
-            '<a href="https://www.youtube.com/@bonoboist" target="_blank" rel="noopener">Direkt auf YouTube ansehen</a></p>';
+            '<a href="' + BASE + '/accounts/rene/videos" target="_blank" rel="noopener">Direkt auf PeerTube ansehen</a></p>';
         });
     })();
   </script>

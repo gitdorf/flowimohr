@@ -663,7 +663,8 @@ a {
 }
 
 /* ===== Videos Page ===== */
-.youtube-channel-link {
+.youtube-channel-link,
+.peertube-channel-link {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -678,12 +679,14 @@ a {
   transition: background var(--transition), transform var(--transition);
 }
 
-.youtube-channel-link:hover {
+.youtube-channel-link:hover,
+.peertube-channel-link:hover {
   background: rgba(245, 158, 11, 0.15);
   transform: translateY(-2px);
 }
 
-.youtube-channel-link svg {
+.youtube-channel-link svg,
+.peertube-channel-link svg {
   flex-shrink: 0;
 }
 
